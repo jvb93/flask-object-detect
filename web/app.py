@@ -3,6 +3,8 @@ import cvlib as cv
 from cvlib.object_detection import draw_bbox
 import sys
 import cv2
+import os
+from discord_webhook import DiscordWebhook, DiscordEmbed
 app = Flask(__name__)
 
 @app.route('/')
@@ -23,6 +25,12 @@ def detect():
     bbox, label, conf = cv.detect_common_objects(image)
 
     if 'person' in label:
+        discord_webhook_url = os.environ['WEBHOOK_URL']
+        webhook = DiscordWebhook(url=discord_webhook_url, content="Person Detected!") 
+        
+        with open(f.filename, "rb") as fl:
+            webhook.add_file(file=fl.read(), filename=f.filename)
+        webhook.execute()
         return 'person detected'
 
     return 'no person detected'

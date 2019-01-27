@@ -7,3 +7,4 @@ pillow
 tensorflow
 keras
 cvlib
+discord-webhook

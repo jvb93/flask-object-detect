@@ -15,9 +15,16 @@ The current motiviation for this project is to detect humans in security camera 
 
 ### How to run
 
+#### Required Parameters
+  - **WEBHOOK_URL**: A discord webhook url
+  - **OD_THRESHOLD**: 0-1 value - percentage of certainty that an object is in the photo to trigger a notificaiton. For example: .45 would mean the OD must be at least 45% confident an object exists to send a notification
+  - **OBJECTS**: comma-delimited list of objects to look for; eg: "horse,person,car" - valid objects are listed [here](https://raw.githubusercontent.com/arunponnusamy/object-detection-opencv/master/yolov3.txt)
+
 #### Docker command
     docker run -d \
     -e WEBHOOK_URL= {Your discord webhook url} \
+    -e OD_THRESHOLD= {object detection threshold} \
+    -e OBJECTS= {comma-seperated list of objects of interest} \
     -p 5000:5000 \
     jvb1993/flask-object-detect
 
